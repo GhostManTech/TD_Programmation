@@ -64,13 +64,15 @@ class Polynomial:
 			newPolynom.coefs[k-1] = k*self.coefs[k]
 		return newPolynom
 
-	def integrate(self) -> Polynomial:
+	def integrate(self, const) -> Polynomial:
 		"""
 		Fonction permettant de donner l'intégrale d'un polynôme à une constante près 
 		"""
 		newPolynom = Polynomial([0 for k in range(0, self.degre+2)])
 		for k in range(1, self.degre+2):
 			newPolynom.coefs[k] = self.coefs[k-1]/k
+		# Ajout de la constante d'intégration
+		newPolynom.coefs[0] = const
 		return newPolynom
 
 	def deg(self):
