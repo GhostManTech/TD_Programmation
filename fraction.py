@@ -60,18 +60,34 @@ class Fraction :
 		self.numerator //= PGCD
 		self.denominator //= PGCD
 
+	def simplify2(self):
+		"""
+		Fonction permettant de simplifier une fraction de nombres entiers relatifs en calculant le pgcd du numérateur et du dénominateur et en renvoyant la fraction produit
+		"""
+		PGCD = pgcd(self.numerator, self.denominator)
+		n = self.numerator//PGCD
+		d = self.denominator//PGCD
+		return Fraction(n,d)
+
 	def calcul(self) -> float:
 		"""
 		Fonction permettant de donner une valeur approchée de la valeur de la fraction
 		"""
 		return self.numerator/self.denominator
 
-
-
+	def __eq__(self, fraction : Fraction) -> bool:
+		"""
+		Fonction permettant de savoir si deux fractions sont égales après simplification
+		"""
+		frac1 = self.simplify2()
+		frac2 = fraction.simplify2()
+		return frac1.numerator == frac2.numerator and frac1.denominator == frac2.denominator
 
 if __name__ == "__main__":
 	fraction1 = Fraction(16,4)
 	fraction1.simplify()
+	print(fraction1)
 	fraction2 = Fraction(1,2)
+	assert(fraction1.mult2(fraction2) == Fraction(4,2))
 	fraction1.mult(fraction2)
 	print(fraction1)
