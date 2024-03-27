@@ -1,5 +1,6 @@
 from __future__ import annotations
 import math
+import unittest
 
 class Polynomial:
 	"""
@@ -101,10 +102,15 @@ class Polynomial:
 		coefs = self.coefs[0:degre+1]
 		return Polynomial(coefs)
 
+class TestPolynomial(unittest.TestCase):
+	def test_derivation(self):
+		self.assertEqual(Polynomial([3,2,0,4]).deriv(),Polynomial([2,0,12,0]))
+
 
 if __name__ == "__main__":
 	#Addition de deux polynômes
 	polynome1 = Polynomial([3,2,0,4])
+	print(polynome1.deriv())
 	polynome2 = Polynomial([-4,-2,2,-4])
 	polynome3 = polynome1.add(polynome2)
 	print(polynome3.degre)
@@ -113,7 +119,7 @@ if __name__ == "__main__":
 
 	#Dérivation et intégration de polynômes
 	polynome4 = polynome3.deriv()
-	polynome5 = polynome3.integrate()
+	polynome5 = polynome3.integrate(4)
 	polynome6 = Polynomial([0,4,5,6,0,0])
 	print(polynome6)
 	print(polynome4)
