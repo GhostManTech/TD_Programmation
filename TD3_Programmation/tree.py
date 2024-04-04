@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations 
 import unittest
 import sys
 """
@@ -18,7 +18,7 @@ def is_floatint(s):
 
 class Tree:
 	"""
-	Classe permettant de créer des arbres n-aires et de leur appliquer des opérations
+	Classe permettant de créer des arbres quelconques et de leur appliquer des opérations
 	"""
 	def __init__(self, label : str, *children):
 		"""
@@ -87,10 +87,10 @@ class Tree:
 			s+= f"{self.child(n-1).__str__()})"
 			return s
 
+	"""
 	def __eq__(self, tree: Tree) -> bool:
-		"""
+		
 		Fonction permettant de comparer deux arbres entre eux
-		"""
 		if self.is_leaf() and tree.is_leaf():
 			return self.label() == tree.label()
 		if self.nb_children() == tree.nb_children():
@@ -101,10 +101,15 @@ class Tree:
 		else:
 			return False
 
+	"""
+	def __eq__(self, tree : Tree) -> bool:
+		return self.__label == tree.label() and self.__children == tree.children()
+
+
 	def deriv(self, var : Tree) -> Tree:
 		"""
 		Fonction permettant de dériver un polynôme par rapport à une indéterminée. Le polynôme étant enregistré sous la 
-		forme d'un arbre.
+		forme d'un arbre. Utiliser (fg)' = f'g + fg' pour la multiplication, méthode apparemment trop compliquée
 		"""
 		if self.is_leaf():
 			if var.label() == self.label():
@@ -294,6 +299,11 @@ class testTree(unittest.TestCase):
 		v = polynome.evaluate_polynome(1)
 		self.assertTrue(v == 12)
 
+	def test_equal(self):
+		polynome1 = Tree("+", Tree("*", Tree("7"), Tree("X")), Tree("5"))
+		polynome2 = Tree("+", Tree("*", Tree("7"), Tree("X")), Tree("5"))
+
+		self.assertTrue(polynome1 == polynome2)
+
 if __name__ == "__main__":
 	unittest.main()
-
