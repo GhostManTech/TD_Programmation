@@ -86,22 +86,22 @@ class Hashtable2:
 		index = self.__hash_function(key) % self.__taille
 		cond = False
 		while not(cond):
-			if self.__tableau[index] == []:
-				self.__tableau[index].append((key, value))
+			if self.__tableau[index] == ():
+				self.__tableau[index] = (key, value)
 				cond = True
 				self.__nb_element += 1
 			else:			
 				index = (index+1) % self.__taille
 				if index == self.__hash_function(key) % self.__taille:
 					self.__taille *= 2
-					self.__tab = list(self.__tableau)
-					self.__tableau = [[] for k in range(self.__taille)]
-					for (k,v) in l:
+					tab = list(self.__tableau)
+					self.__tableau = [() for k in range(self.__taille)]
+					for (k,v) in tab:
 						self.put(k,v)
 					self.put(key, value)
 				else:
 					if self.__tableau[index] == []:
-						self.__tableau[index].append((key,value))
+						self.__tableau[index] = (key,value)
 						cond = True
 						self.__nb_element += 1
 
@@ -184,6 +184,7 @@ class Hashtable:
 		index = self.__hash_function(key) % self.__taille
 		
 		if self.nb_element() >= 1.2*self.taille():
+			self.__nb_element = 0
 			self.resize()
 
 		if key in [k for (k,v) in self.__tableau[index]]:
@@ -261,3 +262,8 @@ def dict_file(file_name : str, hash_function : callable, N : int):
 		time_lecture.append(t2-t1)
 	
 	return hashtable, time_ecriture, time_lecture, len(lines)
+
+if __name__ == "__main__":
+	hshtable = Hashtable2(hash_function_naive,97)
+	hshtable.put("a", 17)
+	print(hshtable.get("a"))
