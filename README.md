@@ -23,7 +23,7 @@ Tests unitaires avec `unittest`
 Implantation d'une table de Hachage avec une liste de collisions
 Création de la classe `Hashtable`
 
-## TD5_Programmation
+## TD5_Programmation
 
 Création d'un jeu de fléchettes avec le framework Tkinter natif de Python
 Création de la classe `Archery`
