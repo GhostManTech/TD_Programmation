@@ -82,6 +82,9 @@ class Archery:
 			self.__pos_shoots.append((self.__pos_target[0],self.__pos_target[1]))
 			self.draw_score()
 			self.draw_shoots()
+		else:
+			boutonTir["state"] = DISABLED
+
 
 	def fire(self):
 		"""
@@ -131,10 +134,10 @@ class Archery:
 		"""
 		Fonction permettant d'afficher le pointeur
 		"""
-		can.create_line(self.__pos_target[0],self.__pos_target[1], self.__pos_target[0],10,fill="red", width=1)
-		can.create_line(self.__pos_target[0],self.__pos_target[1], self.__center*2-10,self.__pos_target[1],fill="red", width=1)
-		can.create_line(self.__pos_target[0],self.__pos_target[1], self.__pos_target[0],self.__center*2-10,fill="red", width=1)
-		can.create_line(self.__pos_target[0],self.__pos_target[1], 10,self.__pos_target[1],fill="red", width=1)
+		can.create_line(self.__center,self.__center, self.__center,10,fill="red", width=1)
+		can.create_line(self.__center,self.__center, self.__center*2-10,self.__center,fill="red", width=1)
+		can.create_line(self.__center,self.__center, self.__center,self.__center*2-10,fill="red", width=1)
+		can.create_line(self.__center,self.__center, 10,self.__center,fill="red", width=1)
 
 	def move_target(self):
 		"""
@@ -153,6 +156,10 @@ class Archery:
 		self.draw_lines()
 		self.draw_shoots()
 
+	def draw_point(self):
+		can.create_line(self.__pos_target[0],self.__pos_target[1]-5, self.__pos_target[0],self.__pos_target[1]+5,fill="black", width=1)
+		can.create_line(self.__pos_target[0]-5,self.__pos_target[1], self.__pos_target[0]+5,self.__pos_target[1],fill="black", width=1)
+	
 	def move_target_2(self):
 		"""
 		Question n°5 : Faire en sorte que le pointeur aille rapidement vers le centre et en sorte rapidement de manière cyclique
@@ -180,6 +187,7 @@ class Archery:
 			self.__pos_target = (self.__pos_target[0] - move[0], self.__pos_target[1] - move[1])
 		
 		self.draw_lines()
+		self.draw_point()
 		self.draw_shoots()
 	
 	def target(self):
