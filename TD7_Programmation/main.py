@@ -62,10 +62,10 @@ def generate_graphe_carre(M, N):
 			graph1[(i,j)] = []
 			p, q = random(), random()
 			if j != N-1:
-				if p <= 0.5:
+				if p <= 0.4:
 					graph1[(i,j)].append((i, j+1)) 
 			if i != M-1:
-				if q <= 0.5:
+				if q <= 0.4:
 					graph1[(i,j)].append((i+1, j))
 	return graph1, pos1, col_index1
 

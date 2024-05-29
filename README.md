@@ -39,3 +39,7 @@ Création d'une classe `Graph` et d'une fonction `generate_graphe_carre` pour tr
 représentant un réseau carré. On essaie d'examiner des propriétés intéressantes de la théorie de la percolation.
 On peut également trouver les composantes connexes simplement étiqueté par des indices. 
 
+
+## TD8_Programmation
+
+Avant-dernier TD du module, création de fonctions de base pour modifier un son à l'aide d'algorithmes qui appliquent directement les transformations sur les données binaires du fichier. On réencode ensuite au format `.wav` pour enregistrer les modifications.
