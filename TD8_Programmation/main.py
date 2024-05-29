@@ -2,7 +2,7 @@ import struct
 
 
 # Exercice 1, pour extraire les données, il suffit d'utiliser la fonction struct.unpack_from et d'extraire les deux canaux séparemment
-def extract_file(filename : str) -> (list, list):
+def extract_file(filename : str, *args) -> (list, list):
 	# Ouverture du fichier filename
 	f = open(filename, "rb")
 	data = f.read()
@@ -17,9 +17,9 @@ def extract_file(filename : str) -> (list, list):
 	return canal1, canal2
 
 # Exercice 2, on redéfini proprement l'entête et on recopie les données en fonction de la méthode d'extraction passée en paramètres
-def create_file(filename1 : str, filename2 : str, extract_function : callable) -> None:
+def create_file(filename1 : str, filename2 : str, extract_function : callable, *args) -> None:
 	f = open(filename2, "wb")
-	canal1, canal2 = extract_function(filename1)
+	canal1, canal2 = extract_function(filename1, *args)
 	taille = 4*len(canal1)-8+44
 
 	# Données d'en-tête, récupéré à partir de la documentation
@@ -46,7 +46,7 @@ def create_file(filename1 : str, filename2 : str, extract_function : callable) -
 	f.close()
 
 # Exercice 3, on enlève la moitié des données, donc ça accélère la musique et comme la fréquence augmente, le son est plus aigü
-def extract_file_half(filename : str) -> (list, list):
+def extract_file_half(filename : str, *args) -> (list, list):
 	# Ouverture du fichier filename
 	f = open(filename, "rb")
 	data = f.read()
@@ -61,7 +61,7 @@ def extract_file_half(filename : str) -> (list, list):
 	return canal1, canal2
 
 # Exercice 4, on double le nombre de données
-def extract_file_double(filename : str) -> (list, list):
+def extract_file_double(filename : str, *args) -> (list, list):
 	# Ouverture du fichier filename
 	f = open(filename, "rb")
 	data = f.read()
@@ -131,14 +131,19 @@ def accelerer_f(filename1 : str, filename2 : str, f : float):
 
 	file.close()
 
+
+"""
+param: T retard
+a: facteur d'atténuation
+"""
+
 # Exercice 6, création d'un écho de retard
-def extract_file_echo(filename : str) -> (list, list):
+def extract_file_echo(filename : str, T : int, a : float) -> (list, list):
 	# Ouverture du fichier filename
 	f = open(filename, "rb")
 	data = f.read()
 	f.close()
 
-	T = 2**18
 	canal1 = []
 	canal2 = []
 	# Extraction des deux canaux à partir du fichier4
@@ -148,13 +153,12 @@ def extract_file_echo(filename : str) -> (list, list):
 		canal1.append(c1)
 		canal2.append(c2)
 		if i - T > 44:
-			c1 = struct.unpack_from("h", data, i-T)[0]
-			c2 = struct.unpack_from("h", data, i+2-T)[0]
+			c1 = int(struct.unpack_from("h", data, i-T)[0]*a)
+			c2 = int(struct.unpack_from("h", data, i+2-T)[0]*a)
 			canal1.append(c1)
-			canal2.append(c2)
-			
+			canal2.append(c2)		
 	return canal1, canal2
 
 
 if __name__ == "__main__":
-	create_file("the_wall.wav", "the_wall2.wav", extract_file_echo)
+	create_file("the_wall.wav", "the_wall2.wav", extract_file_echo, 2**18, 1/2)
