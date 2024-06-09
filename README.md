@@ -43,3 +43,7 @@ On peut également trouver les composantes connexes simplement étiqueté par de
 ## TD8_Programmation
 
 Avant-dernier TD du module, création de fonctions de base pour modifier un son à l'aide d'algorithmes qui appliquent directement les transformations sur les données binaires du fichier. On réencode ensuite au format `.wav` pour enregistrer les modifications.
+
+## TD9_Programmation
+
+Dernier TD du module, création d'une classe pour représenter des polynôme de l'anneau quotienté `Z_q[x]/(X^n+1)Z_q[X]` et application de ces susdits polynômes au chiffrement et déchiffrement de clés publiques et privées. Les tests unitaires n'ont pas été réalisés et le TD n'est malheureusement pas achevé. 

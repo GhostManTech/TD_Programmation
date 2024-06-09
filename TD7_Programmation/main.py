@@ -17,8 +17,8 @@ from random import randint, sample, choice, random
 
 root = Tk()
 content = Frame(root)
-w = 500
-h = 500
+w = 720
+h = 480
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 x = (screen_width - w) // 2 
